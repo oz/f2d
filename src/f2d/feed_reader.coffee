@@ -1,6 +1,6 @@
-FeedMe  = require 'feedme'
-http    = require 'http'
-URL     = require 'url'
+FeedMe = require 'feedme'
+http   = require 'http'
+URL    = require 'url'
 
 class FeedReader
   constructor: (url) ->
@@ -11,15 +11,17 @@ class FeedReader
     @setupParser cb
     buf = ''
     http.get @url, (res) =>
-      res.on 'error', (err) -> cb err, null
+      if res.statusCode != 200
+        return cb {message: 'Invalid status code: ' + res.statusCode}, null
       res.on 'data', (data) -> buf += data
+      res.on 'close', cb
       res.on 'end', () =>
         @parser.write buf
         @parser.end()
+    .on 'error', cb
 
   setupParser: (cb) ->
-    @parser.on 'error', (err) -> cb err, null
-    @parser.on 'end', () =>
-      cb null, @parser.done()
+    @parser.on 'error', cb
+    @parser.on 'end', () => cb null, @parser.done()
 
 exports.FeedReader = FeedReader

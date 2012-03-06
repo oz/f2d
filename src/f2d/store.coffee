@@ -43,8 +43,8 @@ class Feeds extends Store
   existUrl: (url, cb) ->
     @get "select rowid as id,
                  name
-                 from feeds
-                 where url = ?", [url], (row) -> cb(row isnt undefined)
+          from feeds
+          where url = ?", [url], (row) -> cb(row isnt undefined)
 
   create: (url, title, cb) ->
     @run "insert into feeds (name, url) values(?, ?)", [title, url] , cb

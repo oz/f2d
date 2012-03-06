@@ -32,7 +32,9 @@ class CmdParser
       else
         reader = new FeedReader url
         reader.get (err, feed) =>
-          if err then throw(err)
+          if err
+            console.log "✖".bold.red, err.message
+            process.exit 127
           title = feed.title || url
           @feeds.create url, title, () ->
             console.log "✓".bold.green
