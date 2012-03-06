@@ -1,0 +1,2 @@
+#!/usr/bin/env node
+var f2d_cli = require('../lib/f2d').cli.run();

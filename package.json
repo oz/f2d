@@ -1,0 +1,29 @@
+{
+  "author": "Arnaud Berthomier <oz@cyprio.net>",
+  "name": "f2d",
+  "description": "",
+  "keywords": [],
+  "version": "0.0.0",
+  "repository": {
+    "url": ""
+  },
+  "engines": {
+    "node": "~0.6.12"
+  },
+  "directories" : {
+    "lib" : "./lib/f2d"
+  },
+  "bin" : {
+    "f2d": "./bin/f2d"
+  },
+  "dependencies": {
+    "optimist": ">= 0.3",
+    "sqlite3":  ">= 2.1",
+    "feedme":   ">= 0.2",
+    "colors":   ">= 0.6"
+  },
+  "devDependencies": {
+    "coffee-script": ">= 1.2"
+  },
+  "optionalDependencies": {}
+}
