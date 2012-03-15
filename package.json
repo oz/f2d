@@ -19,7 +19,7 @@
   "dependencies": {
     "optimist": ">= 0.3",
     "sqlite3":  ">= 2.1",
-    "feedme":   ">= 0.2",
+    "feedme":   ">= 0.2.1",
     "colors":   ">= 0.6"
   },
   "devDependencies": {
