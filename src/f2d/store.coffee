@@ -27,6 +27,7 @@ class Feeds extends Store
                     create table if not exists 'feeds' (
                       url             text,
                       name            varchar(255),
+                      account         varchar(255),
                       last_updated_at datetime
                     )
                     """
@@ -37,6 +38,7 @@ class Feeds extends Store
     super "select rowid as id,
                   url,
                   name,
+                  account,
                   last_updated_at
            from feeds", (err, row) -> if (err) then throw(err) else cb row
 
@@ -46,8 +48,9 @@ class Feeds extends Store
           from feeds
           where url = ?", [url], (row) -> cb(row isnt undefined)
 
-  create: (url, title, cb) ->
-    @run "insert into feeds (name, url) values(?, ?)", [title, url] , cb
+  create: (url, title, account, cb) ->
+    @run "insert into feeds (name, url, account)
+          values(?, ?, ?)", [title, url, account] , cb
 
   update: () ->
     console.log "Update feeds"

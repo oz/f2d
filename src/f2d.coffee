@@ -6,7 +6,7 @@ util       = require 'util'
 class CmdParser
   constructor: (@argv) ->
     @commands =
-      add:    1
+      add:    2
       list:   0
       config: 2
       update: 0
@@ -23,7 +23,7 @@ class CmdParser
     @feeds.each (feed) ->
       console.log util.inspect(feed)
 
-  add: (url) ->
+  add: (account, url) ->
     process.stdout.write "Importing... "
     @feeds.existUrl url, (exist) =>
       if exist
@@ -36,8 +36,7 @@ class CmdParser
             console.log "✖".bold.red, err.message
             process.exit 127
           title = feed.title || url
-          @feeds.create url, title, () ->
-            console.log "✓".bold.green
+          @feeds.create url, title, account, () -> console.log "✓".bold.green
 
   config: (key, value) ->
     console.log "Set config key #{key} to #{value}"
@@ -50,10 +49,10 @@ class CmdParser
   help: () ->
     console.log """
     Usage: f2d <command> [args]
-      f2d list                   list feeds
-      f2d add <feed url>         add a feed URL
-      f2d config <key> <value>   set config key to value
-      f2d update                 refresh all feeds
+      f2d list                      list feeds
+      f2d add <account> <feed url>  add a feed URL to an account
+      f2d config <key> <value>      set config key to value
+      f2d update                    refresh all feeds
     """
     process.exit 1
 
